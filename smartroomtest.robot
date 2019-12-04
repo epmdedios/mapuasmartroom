@@ -1,10 +1,14 @@
 * Settings *
-Variables       smartroomtest.py
+Library     OperatingSystem
+Variables   smartroomtest.py
 
 * Test Cases *
-Test
-    ${luna.text}        Set Variable    Please turn on the lights
-    Log To Console      ${luna.nouns}
+Configuration File
+    Should Exist        smartroom.yaml              Luna's config file is missing
+    Should Be Equal     LUNA                        Convert To Uppercase                            ${luna.configurations["DEFAULT_WAKE_WORD"]}         Luna's wake word is not configured properly
+    Should Be Equal     RESPEAKER 4 MIC ARRAY       Convert To Uppercase                            ${luna.configurations["MICROPHONE_MODEL_NAME"]}     Luna's microphone is not configured properly
+    Should Be Equal     3                           ${luna.configurations["COMMANDS"]["BAOS"]}      Luna's KNX command is not configured properly
+
 TestPerformNaiveBayes2
     ${luna.text}        Set Variable     please turn off the lights
     log to console  ${luna.polarities}
